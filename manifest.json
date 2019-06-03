@@ -1,0 +1,16 @@
+{
+    "name": "Catsu!",
+    "short_name": "Catsu",
+    "description": "Catsu is for cat's admirer",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "background_color": "#e57373",
+    "theme_color": "#e57373",
+    "icons": [
+        {
+            "src": "icon.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
