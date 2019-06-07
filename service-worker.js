@@ -1,21 +1,20 @@
-const CACHE_NAME = "catsu-v1";
+const CACHE_NAME = "catsu-v3";
 var urlsToCache = [
   "/",
   "/nav.html",
   "/index.html",
-  "/article.html",
+  "/detail-team.html",
   "/pages/home.html",
-  "/pages/about.html",
-  "/pages/contact.html",
-  "/pages/whatscat.html",
+  "/pages/favorite.html",
   "/css/materialize.min.css",
   "/css/style.css",
   "/js/materialize.min.js",
   "/js/nav.js",
+  "/js/notification.js",
+  "/js/idb.js",
   "/js/api.js",
   "/js/jquery-3.2.1.min.js",
   "/assets/background1.jpg",
-  "/assets/background2.jpg",
   "/assets/font-icon.woff2",
   "/icon.png"
 ];
@@ -29,7 +28,7 @@ self.addEventListener("install", function(event) {
 });
 
 self.addEventListener("fetch", function(event) {
-  var base_url = "https://readerapi.codepolitan.com/";
+  var base_url = "https://api.football-data.org/";
   if (event.request.url.indexOf(base_url) > -1) {
     event.respondWith(
       caches.open(CACHE_NAME).then(function(cache) {
@@ -41,7 +40,6 @@ self.addEventListener("fetch", function(event) {
     );
   } else {
     event.respondWith(
-      // 0000000000000000000
       caches.match(event.request, { ignoreSearch: true }).then(function(response) {
         return response || fetch (event.request);
       })
@@ -64,3 +62,23 @@ self.addEventListener("fetch", function(event) {
     );
   });
   
+  self.addEventListener('push', function(event) {
+    var body;
+    if (event.data) {
+      body = event.data.text();
+    } else {
+      body = 'Push message no payload';
+    }
+    var options = {
+      body: body,
+      icon: 'icon.png',
+      vibrate: [100, 50, 100],
+      data: {
+        dateOfArrival: Date.now(),
+        primaryKey: 1
+      }
+    };
+    event.waitUntil(
+      self.registration.showNotification('Push Notification', options)
+    );
+  });

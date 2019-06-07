@@ -58,10 +58,15 @@ document.addEventListener("DOMContentLoaded", function() {
         var instances = M.Parallax.init(elems);
 
         switch (page) {
-          case 'whatscat':
+          case 'home':
             getClassmentLeague()
             break;
         
+            case 'favorite':
+                matchesRead()
+                teamsRead()
+                break;
+
           default:
             break;
         }

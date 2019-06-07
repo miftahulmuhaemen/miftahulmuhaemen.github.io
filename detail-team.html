@@ -12,21 +12,57 @@
   </head>
 
   <body>
-       <!-- Navigasi -->
+
+    
     <nav class="teal lighten-1" role="navigation">
       <div class="nav-wrapper container">
         <a href="#" class="brand-logo" id="logo-container">News Reader</a>
         <a href="./index.html" class="sidenav-trigger" data-target="nav-mobile">
           <i class="material-icons">arrow_back</i>
         </a>
-        <ul class="topnav right hide-on-med-and-down"></ul>
+        <ul class="topnav right hide-on-med-and-down">
+            <li><a class="waves-effect" href="./index.html">Back</a></li>
+        </ul>
         <ul class="sidenav" id="nav-mobile"></ul>
       </div>
     </nav>
-    <!-- Akhir Navigasi -->
-    <div class="container" id="body-content"></div>
+
+    <div class="container" id="body-content">
+
+        <div class="fixed-action-btn" id="floating-btn">
+        </div>
+
+        <h1 id="name"></h1>
+        <div class="row">
+        <div class="col s6">
+          <blockquote>
+            <h6 id="founded">Founded on </h6>
+            <h6 id="venue">Venue on </h6>
+          </blockquote>
+        </div>
+        <div class="col s6">
+          <blockquote>
+            <h6 id="email"></h6>
+            <h6 id="website"></h6>
+          </blockquote>
+        </div>
+        </div>  
+
+        <ul class="collapsible">
+        <li>
+          <div class="collapsible-header"><i class="material-icons">favorite</i>Logo</div>
+          <div class="collapsible-body" id="crestUrl"></div>
+        </li>
+        <li>
+          <div class="collapsible-header"><i class="material-icons">favorite</i>Squad</div>
+          <div class="collapsible-body"><div class="row" id="second-body"></div></div>
+        </li>
+        </ul>
+
+    </div>
     <script src="js/materialize.min.js"></script>
     <script src="js/api.js"></script>
+    <script src="js/idb.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function() {
         getDetailTeam();
