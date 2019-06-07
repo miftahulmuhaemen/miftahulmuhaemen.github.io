@@ -88,10 +88,6 @@ workbox.precaching.precacheAndRoute([
   {
     "url": "README.md",
     "revision": "159913b434e9f525d54dc6e97d18118d"
-  },
-  {
-    "url": "service-worker.js",
-    "revision": "22da9380bc23124985a70c384e2471f6"
   }
 ]);
 workbox.routing.registerRoute(
