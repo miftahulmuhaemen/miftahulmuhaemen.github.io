@@ -19,7 +19,7 @@ workbox.precaching.precacheAndRoute([
   },
   {
     "url": "css/style.css",
-    "revision": "8b4f1cce30fb65fa0275d27e42a54a77"
+    "revision": "e7cb203225f236311282b2686cb839c1"
   },
   {
     "url": "detail-team.html",
@@ -27,7 +27,7 @@ workbox.precaching.precacheAndRoute([
   },
   {
     "url": "Endpoint.txt",
-    "revision": "dbcef4fa193c8b6a323768c0614a340c"
+    "revision": "76a3da59612b3ce4936fb42430ee7eec"
   },
   {
     "url": "icon.png",
@@ -35,7 +35,7 @@ workbox.precaching.precacheAndRoute([
   },
   {
     "url": "index.html",
-    "revision": "0daa3bf2f240de983b93152722e0bf3a"
+    "revision": "9c4e8389ae9ab2f86e38a409c9503b79"
   },
   {
     "url": "js/api.js",
@@ -43,7 +43,7 @@ workbox.precaching.precacheAndRoute([
   },
   {
     "url": "js/idb.js",
-    "revision": "a66942528a8af114e8a0ae4b517ab0be"
+    "revision": "c06c5349be2a5370c8ff50145d5fc269"
   },
   {
     "url": "js/jquery-3.2.1.min.js",
@@ -51,7 +51,7 @@ workbox.precaching.precacheAndRoute([
   },
   {
     "url": "js/materialize.js",
-    "revision": "9832259e6e013b2e55f342c053c26104"
+    "revision": "74ac8fd1cd0b94f532c54d4c707a86ae"
   },
   {
     "url": "js/materialize.min.js",
@@ -83,14 +83,46 @@ workbox.precaching.precacheAndRoute([
   },
   {
     "url": "push.js",
-    "revision": "562b1d3ca5e2c3ff468b8177b6294463"
+    "revision": "c6622e55f6a9e33bb98d1af48448d7c2"
   },
   {
     "url": "README.md",
-    "revision": "159913b434e9f525d54dc6e97d18118d"
+    "revision": "1983b90732b1f5fc4e35e8106ad3fc81"
   }
 ]);
 workbox.routing.registerRoute(
     new RegExp('https://api.football-data.org/'),
-    workbox.strategies.cacheFirst()
+    workbox.strategies.cacheFirst({
+      plugins: [
+        new workbox.cacheableResponse.Plugin({
+          statuses: [200],
+        }),
+        new workbox.expiration.Plugin({
+          maxAgeSeconds: 60 * 60 * 24 * 365,
+          maxEntries: 30,
+        }),
+      ]
+    })
   );
+
+  self.addEventListener('push', function(event) {
+    var body;
+    if (event.data) {
+      body = event.data.text();
+    } else {
+      body = 'Push message no payload';
+    }
+    var options = {
+      body: body,
+      icon: 'img/notification.png',
+      vibrate: [100, 50, 100],
+      data: {
+        dateOfArrival: Date.now(),
+        primaryKey: 1
+      }
+    };
+    event.waitUntil(
+      self.registration.showNotification('Push Notification', options)
+    );
+  });
+  
